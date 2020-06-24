@@ -13,6 +13,9 @@ const LivingRoom = () => {
   background:${musicState.color}
   `;
 
+  const CouchPostButton = styled.button`
+  background:${lightColorState.couchColor}
+  `
   const toggleMusicMode = () => {
     axios
       .post(`http://localhost:5555/musictoggle`, {})
@@ -28,6 +31,10 @@ const LivingRoom = () => {
 
       });
   };
+  const updateLightColor = (url,color) => {
+    console.log(url,color)
+    axios.get(`${url}/${color}`)
+  }
   const handleCouchColorChange = (color) =>{
     setLightColorState({...lightColorState,couchColor: color.hex})
   }
@@ -40,6 +47,7 @@ const LivingRoom = () => {
       <div>
         <h3>Change Couch Light Colors</h3>
           <SketchPicker color={lightColorState.couchColor} onChange={handleCouchColorChange}/>
+          <CouchPostButton onClick={() =>updateLightColor(`http://localhost:5555/lights/couch`,lightColorState.couchColor)}>Change Lights</CouchPostButton>
       </div>
 
     </div>
