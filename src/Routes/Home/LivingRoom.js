@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import axios from 'axios'
+import { SketchPicker } from 'react-color';
+
 const LivingRoom = () => {
   const [musicState, setMusicState] = useState({
     color: "#808080",
     isToggled: false,
   });
+  const [lightColorState,setLightColorState] = useState({couchColor:"#e8e8e8"})
   const ToggleMusicModeButton = styled.button`
   background:${musicState.color}
   `;
@@ -25,7 +28,9 @@ const LivingRoom = () => {
 
       });
   };
-
+  const handleCouchColorChange = (color) =>{
+    setLightColorState({...lightColorState,couchColor: color.hex})
+  }
   return (
     <div>
       <div>
@@ -34,7 +39,7 @@ const LivingRoom = () => {
       </div>
       <div>
         <h3>Change Couch Light Colors</h3>
-
+          <SketchPicker color={lightColorState.couchColor} onChange={handleCouchColorChange}/>
       </div>
 
     </div>
