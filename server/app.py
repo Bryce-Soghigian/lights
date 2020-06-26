@@ -13,6 +13,7 @@ def is_up():
 @app.route("/api/v1/lights/couch/<color>", methods=["GET"])
 def couch_light_controller(color):
   print(f"Hit couch endpoint {color}")
+  
   return "<h1>COUCH ROUTE</h1>"
 
 @app.route("/api/v2/test_response/<color>")
