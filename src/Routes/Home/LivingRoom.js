@@ -19,7 +19,7 @@ const LivingRoom = () => {
 
   const toggleMusicMode = () => {
     axios
-      .post(`http://localhost:5555/musictoggle`, {})
+      .post(`http://localhost:5000/musictoggle`, {})
       .then((res) => {
         if (musicState.isToggled === false) {
           setMusicState({ color: "#7fff7f", isToggled: true }); //Sets button color to be green
@@ -33,7 +33,8 @@ const LivingRoom = () => {
   };
 
   const updateLightColor = (url, color) => {
-    console.log(url, color);
+    console.log(`${url}/${color}`);
+    
     axios
       .get(`${url}/${color}`)
       .then((res) => {
@@ -139,13 +140,19 @@ const FloorPostButton = styled.button`
           onChange={handleCouchColorChange}
         />
         <CouchPostButton
-          onClick={() =>
+          onClick={() =>{
+            let newState = Array.from(lightColorState.couchColor)
+            newState.shift()
+            newState = newState.join(" ")
+            console.log(newState,"newState")
+            setLightColorState({...lightColorState,couchColor:newState})
             updateLightColor(
-              `http://localhost:5555/lights/couch`,
-              lightColorState.couchColor
+              `http://127.0.0.1:5000/api/v1/lights/couch`,
+              
             )
           }
-        >
+          }
+              >
           Change Lights
         </CouchPostButton>
         
