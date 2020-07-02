@@ -33,10 +33,10 @@ const LivingRoom = () => {
 
   const updateLightColor = (url, color) => {
     console.log("Color", color);
-    console.log(`${url}/${color}`);
+    console.log(`http://localhost:5555/api/v1/lights/couch/7ed321`);
 
     axios
-      .get(`${url}/${color}`)
+      .post(`http://localhost:5555/api/v1/lights/couch/#FFF`)
       .then((res) => {
         console.log(res, "res");
         setMessage({ message: `Successfully Set Lights To ${color}` });
@@ -139,14 +139,14 @@ const LivingRoom = () => {
           />
           <CouchPostButton
             onClick={() => {
-              let newState = Array.from(lightColorState.couchColor);
-              newState.shift();
-              newState = newState.join("");
-              console.log(String(newState), "newState");
-              setLightColorState({ ...lightColorState, couchColor: newState });
+              console.log(lightColorState.couchColor,"color")
+              // let newState = Array.from(lightColorState.couchColor);
+              // newState.shift();
+              // newState = newState.join("");
+              // console.log(String(newState), "newState");
               updateLightColor(
-                `http://127.0.0.1:5000/api/v1/lights/couch`,
-                newState
+                `http://localhost:5555/api/v1/lights/couch`,
+                lightColorState.couchColor
               );
             }}
           >
