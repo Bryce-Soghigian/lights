@@ -2,19 +2,13 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import { SketchPicker } from "react-color";
+import AdjustLightColor from "../../Components/AdjustLightColor";
 
 const LivingRoom = () => {
   const [musicState, setMusicState] = useState({
     color: "#808080",
     isToggled: false,
   });
-  const [lightColorState, setLightColorState] = useState({
-    couchColor: "e8e8e8",
-    ceilingColor: "e8e8e8",
-    stairsColor: "e8e8e8",
-    floorColor: "e8e8e8",
-  });
-  const [message, setMessage] = useState({ message: "" });
 
   const toggleMusicMode = () => {
     axios
@@ -31,35 +25,7 @@ const LivingRoom = () => {
       });
   };
 
-  const updateLightColor = (url, color) => {
-    console.log("Color", color);
-    console.log(`http://localhost:5555/api/v1/lights/couch/7ed321`);
 
-    axios
-      .post(`http://localhost:5555/api/v1/lights/couch/#FFF`)
-      .then((res) => {
-        console.log(res, "res");
-        setMessage({ message: `Successfully Set Lights To ${color}` });
-      })
-      .catch((err) => {
-        setMessage({
-          message: `Failed To Set Lights To ${color} because of ${err.message}`,
-        });
-      });
-  };
-
-  const handleCouchColorChange = (color) => {
-    setLightColorState({ ...lightColorState, couchColor: color.hex });
-  };
-  const handleCeilingChange = (color) => {
-    setLightColorState({ ...lightColorState, ceilingColor: color.hex });
-  };
-  const handleStairsChange = (color) => {
-    setLightColorState({ ...lightColorState, stairsColor: color.hex });
-  };
-  const handleFloorChange = (color) => {
-    setLightColorState({ ...lightColorState, floorColor: color.hex });
-  };
 
   const Container = styled.div`
     display: flex;
@@ -69,143 +35,16 @@ const LivingRoom = () => {
   const ToggleMusicModeButton = styled.button`
     background: ${musicState.color};
   `;
-  const StairsContianer = styled.div`
-    width: 50vw;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background: ${lightColorState.stairsColor};
-  `;
-  const CouchContainer = styled.div`
-    width: 50vw;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background: ${lightColorState.couchColor};
-  `;
 
-  const CouchPostButton = styled.button`
-    border: 2px black solid;
-    background: white;
-    color: ${lightColorState.couchColor};
-  `;
 
-  const LivingRoomCeilingContainer = styled.div`
-    width: 50vw;
-    background: ${lightColorState.ceilingColor};
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  `;
-  const CeilingPostButton = styled.button`
-    border: 2px black solid;
-    background: white;
-    color: ${lightColorState.ceilingColor};
-  `;
-
-  const StairsPostButton = styled.button`
-    border: 2px black solid;
-    background: white;
-    color: ${lightColorState.stairsColor};
-  `;
-
-  const FloorContainer = styled.div`
-    width: 50vw;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background: ${lightColorState.floorColor};
-  `;
-  const FloorPostButton = styled.button`
-    border: 2px black solid;
-    background: white;
-    color: ${lightColorState.floorColor};
-  `;
 
   return (
     <div>
-      <h3>{message.message}</h3>
-
       <Container>
-        <CouchContainer>
-          <h3>Change Couch Light Colors</h3>
-          <SketchPicker
-            color={lightColorState.couchColor}
-            onChange={handleCouchColorChange}
-          />
-          <CouchPostButton
-            onClick={() => {
-              console.log(lightColorState.couchColor,"color")
-              // let newState = Array.from(lightColorState.couchColor);
-              // newState.shift();
-              // newState = newState.join("");
-              // console.log(String(newState), "newState");
-              updateLightColor(
-                `http://localhost:5555/api/v1/lights/couch`,
-                lightColorState.couchColor
-              );
-            }}
-          >
-            Change Lights
-          </CouchPostButton>
-        </CouchContainer>
-        <StairsContianer>
-          <h3>Change Stair Lights</h3>
-          <SketchPicker
-            color={lightColorState.stairsColor}
-            onChange={handleStairsChange}
-          />
-          <StairsPostButton
-            onClick={() =>
-              updateLightColor(
-                `http://localhost:5555/lights/stairs`,
-                lightColorState.stairsColor
-              )
-            }
-          >
-            Change Lights
-          </StairsPostButton>
-        </StairsContianer>
-      </Container>
-      <Container>
-        <LivingRoomCeilingContainer>
-          <h3>Change Ceiling Lights</h3>
-          <SketchPicker
-            color={lightColorState.ceilingColor}
-            onChange={handleCeilingChange}
-          />
-          <CeilingPostButton
-            onClick={() =>
-              updateLightColor(
-                `http://localhost:5555/lights/livingroominceiling`,
-                lightColorState.ceilingColor
-              )
-            }
-          >
-            Change Lights
-          </CeilingPostButton>
-        </LivingRoomCeilingContainer>
-        <FloorContainer>
-          <h3>Change Floor Lights</h3>
-          <SketchPicker
-            color={lightColorState.floorColor}
-            onChange={handleFloorChange}
-          />
-          <FloorPostButton
-            onClick={() =>
-              updateLightColor(
-                `http://localhost:5555/lights/floor`,
-                lightColorState.floorColor
-              )
-            }
-          >
-            Change Lights
-          </FloorPostButton>
-        </FloorContainer>
+      <AdjustLightColor requestUrl="http://localhost:5555/api/v1/lights/couch" lightLocation="couch"/>
+      {/* <AdjustLightColor />
+      <AdjustLightColor />
+      <AdjustLightColor /> */}
       </Container>
       <div>
         <h3>Toggle on the music</h3>

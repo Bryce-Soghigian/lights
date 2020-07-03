@@ -9,7 +9,7 @@ const {hexToRgb} = require("../../utils/helpers.js")
 //   }
  
   
-router.post("/:color",(req,res) => {
+router.get("/:color",(req,res) => {
     let color = req.params.color;
     color = "#" + color
     console.log(color,"COLOR in hex")
