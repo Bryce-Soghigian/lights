@@ -29,6 +29,11 @@ const LivingRoom = () => {
   const Container = styled.div`
     display: flex;
     justify-content: space-around;
+    @media(max-width:800px){
+      justify-content:center;
+      width:100vw;
+      flex-direction:column;
+    }
   `;
 
   const ToggleMusicModeButton = styled.button`

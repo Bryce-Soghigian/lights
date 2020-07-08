@@ -18,6 +18,11 @@ export default function AdjustLightColor(props) {
     justify-content: center;
     align-items: center;
     background: ${lightColor};
+    @media(max-width:800px){
+
+      width:100vw;
+ 
+    }
     
     `
     const AdjustLightButton = styled.button`
