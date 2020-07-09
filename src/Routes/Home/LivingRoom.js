@@ -11,7 +11,7 @@ const LivingRoom = () => {
 
   const toggleMusicMode = () => {
     axios
-      .post(`http://localhost:5000/musictoggle`, {})
+      .post(`http://192.168.1.3:5555/musictoggle`, {})
       .then((res) => {
         if (musicState.isToggled === false) {
           setMusicState({ color: "#7fff7f", isToggled: true }); //Sets button color to be green
@@ -24,7 +24,7 @@ const LivingRoom = () => {
       });
   };
 
-
+  
 
   const Container = styled.div`
     display: flex;
@@ -56,12 +56,12 @@ const LivingRoom = () => {
 
     </TitleContainer>
       <Container>
-      <AdjustLightColor requestUrl="http://localhost:5555/api/v1/lights/couch" lightLocation="Couch"/>
-      <AdjustLightColor requestUrl="http://localhost:5555/api/v1/lights/stairs" lightLocation="Stairs"/>
+      <AdjustLightColor requestUrl="http://192.168.1.3:5555/api/v1/lights/couch" lightLocation="Couch"/>
+      <AdjustLightColor requestUrl="http://192.168.1.3:5555/api/v1/lights/stairs" lightLocation="Stairs"/>
       </Container>
       <Container>
-      <AdjustLightColor requestUrl="http://localhost:5555/api/v1/lights/ceiling" lightLocation="Ceiling"/>
-      <AdjustLightColor requestUrl="http://localhost:5555/api/v1/lights/floor" lightLocation="Floor"/>
+      <AdjustLightColor requestUrl="http://192.168.1.3:5555/api/v1/lights/ceiling" lightLocation="Ceiling"/>
+      <AdjustLightColor requestUrl="http://192.168.1.3:5555/api/v1/lights/floor" lightLocation="Floor"/>
       </Container>
       <div>
         <h3>Toggle on the music</h3>
