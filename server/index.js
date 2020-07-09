@@ -7,12 +7,15 @@ const stairsRouter = require("./Routes/stairs/stairsRouter")
 
 const server = express()
 const PORT = process.env.PORT || 5555;
-server.listen(PORT, () => {
+server.listen(PORT, '0.0.0.0',() => {
   console.log(`//================Server is running on ${PORT}... =================//`);
 });
 server.use(cors())
 server.use(express.json())
 //Routes
+server.get("/",(req,res) => {
+  res.json({is_server_up:"true"})
+})
 server.use("/api/v1/lights/couch",couchRouter)
 server.use("/api/v1/lights/floor",floorRouter)
 server.use("/api/v1/lights/ceiling",ceilingRouter)
